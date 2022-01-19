@@ -1,25 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import  Item  from './components/Item';
+import Inventory from './components/Inventory';
+// import { Inventory } from './market/Inventory';
+import { observer , inject} from 'mobx-react'
 
-function App() {
+function App(props) {
+  let market = props.Market
   return (
+    // console.log(JSON.stringify(props) )
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Inventory  />
+      {market.items.map((i,ind) => <Item item = {i} key = {ind}/>)}      
     </div>
   );
 }
 
-export default App;
+export default inject("Market")(observer(App))
+
+// export default observer(App)
+
